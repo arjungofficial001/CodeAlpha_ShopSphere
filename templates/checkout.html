@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+
+{% block title %}
+Checkout - ShopSphere
+{% endblock %}
+
+
+{% block content %}
+
+<section class="products-section">
+
+    <div class="container">
+
+        <div class="section-heading">
+            <h2>Checkout</h2>
+        </div>
+
+
+        <div class="checkout-grid">
+
+            <!-- Order Summary -->
+
+            <div class="checkout-card">
+
+                <h2>
+                    Order Summary
+                </h2>
+
+
+                {% for item in cart_items %}
+
+                    <div class="checkout-item">
+
+                        <div>
+
+                            <strong>
+                                {{ item.product.name }}
+                            </strong>
+
+                            <p>
+                                ₹{{ item.product.price }}
+                                ×
+                                {{ item.quantity }}
+                            </p>
+
+                        </div>
+
+
+                        <strong>
+                            ₹{{ item.item_total }}
+                        </strong>
+
+                    </div>
+
+                {% endfor %}
+
+
+                <div class="checkout-total">
+
+                    <span>
+                        Total
+                    </span>
+
+                    <strong>
+                        ₹{{ total }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- Shipping Address -->
+
+            <div class="checkout-card">
+
+                <h2>
+                    Shipping Information
+                </h2>
+
+                <p class="checkout-subtitle">
+                    Enter the address where you want your order delivered.
+                </p>
+
+
+                <form
+                    method="POST"
+                    class="checkout-form"
+                >
+
+                    {% csrf_token %}
+
+
+                    <div class="form-group">
+
+                        <label for="shipping_address">
+                            Shipping Address
+                        </label>
+
+                        <textarea
+                            id="shipping_address"
+                            name="shipping_address"
+                            rows="6"
+                            placeholder="Enter your full delivery address..."
+                            required
+                        ></textarea>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary checkout-button"
+                    >
+                        Place Order
+                    </button>
+
+                </form>
+
+
+                <a
+                    href="{% url 'cart' %}"
+                    class="checkout-back"
+                >
+                    ← Back to Cart
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

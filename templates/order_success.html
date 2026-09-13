@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}
+Order Successful - ShopSphere
+{% endblock %}
+
+
+{% block content %}
+
+<section class="products-section">
+
+    <div class="container">
+
+        <div class="order-success">
+
+            <div class="success-icon">
+                ✓
+            </div>
+
+
+            <h1>
+                Order Placed Successfully!
+            </h1>
+
+
+            <p>
+                Thank you for shopping with ShopSphere.
+            </p>
+
+
+            <div class="order-info">
+
+                <p>
+                    <strong>
+                        Order Number:
+                    </strong>
+
+                    #{{ order.id }}
+                </p>
+
+
+                <p>
+                    <strong>
+                        Total Amount:
+                    </strong>
+
+                    ₹{{ order.total_amount }}
+                </p>
+
+
+                <p>
+                    <strong>
+                        Status:
+                    </strong>
+
+                    {{ order.status }}
+                </p>
+
+
+                <p>
+                    <strong>
+                        Shipping Address:
+                    </strong>
+
+                    <br>
+
+                    {{ order.shipping_address }}
+                </p>
+
+            </div>
+
+
+            <div class="order-success-actions">
+
+                <a
+                    href="{% url 'home' %}"
+                    class="btn btn-primary"
+                >
+                    Continue Shopping
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

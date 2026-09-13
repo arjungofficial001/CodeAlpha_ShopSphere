@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+
+{% block title %}
+My Orders - ShopSphere
+{% endblock %}
+
+
+{% block content %}
+
+<section class="products-section">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <h2>
+                My Orders
+            </h2>
+
+        </div>
+
+
+        {% if orders %}
+
+            {% for order in orders %}
+
+                <div class="order-card">
+
+                    <div class="order-header">
+
+                        <div>
+
+                            <h3>
+                                Order #{{ order.id }}
+                            </h3>
+
+                            <p>
+                                {{ order.created_at|date:"d M Y, h:i A" }}
+                            </p>
+
+                        </div>
+
+
+                        <span class="order-status">
+                            {{ order.status }}
+                        </span>
+
+                    </div>
+
+
+                    <div class="order-products">
+
+                        {% for item in order.items.all %}
+
+                            <div class="order-product">
+
+                                <div>
+
+                                    <strong>
+                                        {{ item.product.name }}
+                                    </strong>
+
+                                    <p>
+                                        ₹{{ item.price }}
+                                        ×
+                                        {{ item.quantity }}
+                                    </p>
+
+                                </div>
+
+
+                                <strong>
+                                    ₹{% widthratio item.price 1 item.quantity %}
+                                </strong>
+
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+
+                    <div class="order-footer">
+
+                        <div>
+
+                            <strong>
+                                Shipping Address
+                            </strong>
+
+                            <p>
+                                {{ order.shipping_address }}
+                            </p>
+
+                        </div>
+
+
+                        <div class="order-total">
+
+                            <span>
+                                Total
+                            </span>
+
+                            <strong>
+                                ₹{{ order.total_amount }}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+
+        {% else %}
+
+            <div class="empty-state">
+
+                <h2>
+                    No Orders Yet
+                </h2>
+
+                <p>
+                    You haven't placed any orders yet.
+                </p>
+
+                <br>
+
+                <a
+                    href="{% url 'home' %}"
+                    class="btn btn-primary"
+                >
+                    Start Shopping
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% endblock %}

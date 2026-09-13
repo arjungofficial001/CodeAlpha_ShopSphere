@@ -1,0 +1,310 @@
+{% extends "base.html" %}
+
+{% block title %}
+ShopSphere - Online Store
+{% endblock %}
+
+
+{% block content %}
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <div class="container">
+
+        <span class="hero-label">
+            WELCOME TO SHOPSPHERE
+        </span>
+
+        <h1>
+            Shop Smart.<br>
+            Live Better.
+        </h1>
+
+        <p>
+            Discover quality products at great prices,
+            all in one place.
+        </p>
+
+
+        <form
+            method="GET"
+            action="{% url 'home' %}"
+            class="search-form"
+        >
+
+            <input
+                type="text"
+                name="q"
+                placeholder="Search products..."
+                value="{{ query }}"
+            >
+
+            <button type="submit">
+                Search
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+<!-- PRODUCTS -->
+
+<section class="products-section">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <div>
+
+                {% if query %}
+
+                    <span class="section-label">
+                        SEARCH
+                    </span>
+
+                    <h2>
+                        Results for "{{ query }}"
+                    </h2>
+
+                {% else %}
+
+                    <span class="section-label">
+                        SHOP OUR COLLECTION
+                    </span>
+
+                    <h2>
+                        Featured Products
+                    </h2>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        {% if products %}
+
+            <div class="product-grid">
+
+                {% for product in products %}
+
+                    <article class="product-card">
+
+                        <!-- Product Image -->
+
+                        {% if product.image %}
+
+                            <img
+                                src="{{ product.image }}"
+                                alt="{{ product.name }}"
+                                class="product-image"
+                            >
+
+                        {% else %}
+
+                            <div class="product-placeholder">
+
+                                <span>
+                                    No Image
+                                </span>
+
+                            </div>
+
+                        {% endif %}
+
+
+                        <!-- Product Information -->
+
+                        <div class="product-info">
+
+                            <span class="category">
+                                {{ product.category }}
+                            </span>
+
+
+                            <h3>
+                                {{ product.name }}
+                            </h3>
+
+
+                            <p class="product-description">
+                                {{ product.description }}
+                            </p>
+
+
+                            <div class="product-bottom">
+
+                                <span class="price">
+                                    ₹{{ product.price }}
+                                </span>
+
+
+                                {% if product.stock > 0 %}
+
+                                    <span class="stock">
+                                        ✓ In Stock
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="out-of-stock">
+                                        Out of Stock
+                                    </span>
+
+                                {% endif %}
+
+                            </div>
+
+
+                            <div class="product-actions">
+
+                                <a
+                                    href="{% url 'product_detail' product.id %}"
+                                    class="btn btn-secondary"
+                                >
+                                    View Details
+                                </a>
+
+
+                                {% if product.stock > 0 %}
+
+                                    <a
+                                        href="{% url 'add_to_cart' product.id %}"
+                                        class="btn btn-primary"
+                                    >
+                                        Add to Cart
+                                    </a>
+
+                                {% else %}
+
+                                    <button
+                                        class="btn btn-secondary"
+                                        disabled
+                                    >
+                                        Out of Stock
+                                    </button>
+
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                {% endfor %}
+
+            </div>
+
+
+        {% else %}
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+                    🔍
+                </div>
+
+                <h2>
+                    No products found
+                </h2>
+
+                <p>
+                    Try searching for another product.
+                </p>
+
+
+                <br>
+
+
+                <a
+                    href="{% url 'home' %}"
+                    class="btn btn-primary"
+                >
+                    View All Products
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+
+<!-- STORE FEATURES -->
+
+<section class="features-section">
+
+    <div class="container">
+
+        <div class="features-grid">
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    🛒
+                </div>
+
+                <h3>
+                    Easy Shopping
+                </h3>
+
+                <p>
+                    Add products to your cart and
+                    manage quantities with ease.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    🔒
+                </div>
+
+                <h3>
+                    Secure Accounts
+                </h3>
+
+                <p>
+                    Create an account and securely
+                    manage your orders.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    📦
+                </div>
+
+                <h3>
+                    Order Tracking
+                </h3>
+
+                <p>
+                    View your orders and check their
+                    current status anytime.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
