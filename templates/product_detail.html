@@ -39,13 +39,16 @@
                     {{ product.category }}
                 </span>
 
+
                 <h1>
                     {{ product.name }}
                 </h1>
 
+
                 <p class="product-detail-description">
                     {{ product.description }}
                 </p>
+
 
                 <div class="product-detail-price">
                     ₹{{ product.price }}
@@ -58,10 +61,11 @@
                         In Stock: {{ product.stock }}
                     </p>
 
+
                     <div class="product-actions">
 
                         <a
-                            href="#"
+                            href="{% url 'add_to_cart' product.id %}"
                             class="btn btn-primary"
                         >
                             🛒 Add to Cart
